@@ -80,3 +80,22 @@ create table Pacientes.Habitaciones(
 		references Pacientes.Pacientes(Id_Paciente)
 )
 go
+
+--Tabla Citas
+create table Atencion.Citas(
+	Id_Cita int identity(1,1),
+	Id_Paciente int null,
+	Id_Medico int null,
+	Fecha_Cita datetime not null,
+
+	Created_at datetime not null default getdate(),
+	Updated_at datetime null,
+	Deleted_at datetime null,
+
+	constraint PK_Citas primary key (Id_Cita),
+	constraint FK_Citas_Pacientes foreign key (Id_Paciente)
+		references Pacientes.Pacientes (Id_Paciente),
+	constraint FK_Citas_Medicas foreign key (Id_Medico)
+		references Personal.Medicos(Id_Medico)
+)
+go
