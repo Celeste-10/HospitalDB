@@ -185,3 +185,15 @@ create table Pacientes.TablaPruebas (Id int, Created_at datetime, Updated_at dat
 go
 drop table Pacientes.TablaPruebas;
 go
+
+--Eliminar restricciones especificas
+alter table Pacientes.Pacientes drop constraint CK_EdadPaciente
+alter table Pacientes.Pacientes drop constraint UQ_CorreoPaciente
+alter table Pacientes.Pacientes drop constraint FK_Medicamentos_Tratamientos
+go
+
+--Crear y eliminar una base de datos externas de pruebas
+create database HospitalPruebaDB
+go
+drop database HospitalPruebaDB
+go
