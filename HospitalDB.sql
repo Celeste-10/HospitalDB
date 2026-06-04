@@ -128,10 +128,34 @@ create table Farmacia.Medicamentos(
 
 	constraint PK_Medicamentos primary key (Id_Medicamento),
 	constraint FK_Medicamentos_Tratamientos foreign key (Id_Tratamiento)
-		references Atencion.Tratamientos(Id_Tratamiento)
+		references Farmacia.Tratamientos(Id_Tratamiento)
 )
 go
 
 --Transfiere la tabla del esquema Atencion al esquema Farmacia
 alter schema Farmacia transfer Atencion.Tratamientos
+go
+
+--Modificaciones de la tabla Pacientes
+alter table Pacientes.Pacientes add Telefono varchar(20) null
+alter table Pacientes.Pacientes add Direccion varchar(100) null
+alter table Pacientes.Pacientes add Genero char(1) null
+alter table Pacientes.Pacientes add Tipo_Sangre varchar(5) null
+alter table Pacientes.Pacientes add Fecha_Nacimiento date null
+alter table Pacientes.Pacientes alter column Nombre_Paciente varchar(100) not null
+alter table Pacientes.Pacientes alter column Direccion varchar(200) null
+go
+--Modificaciones de la tabla Medicos
+alter table Personal.Medicos add Experiencia int null
+alter table Personal.Medicos add Turno varchar(20) null
+alter table Personal.Medicos add Observaciones varchar(250) null
+alter table Personal.Medicos drop column Observaciones
+go
+--Modificaciones de la tabla Citas
+alter table Atencion.Citas add Estado varchar(20) null
+alter table Atencion.Citas add Costo_Consulta int null
+alter table Atencion.Citas alter column Costo_Consulta decimal(10,2) null
+go
+--Modificaciones de la tabla Habitaciones
+alter table Pacientes.Habitaciones add Disponibilidad varchar(20) not null default 'Disponible'
 go
