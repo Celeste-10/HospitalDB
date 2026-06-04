@@ -115,3 +115,19 @@ create table Atencion.Tratamientos(
 		references Pacientes.Pacientes (Id_Paciente)
 )
 go
+
+--Tabla Medicamentos
+create table Farmacia.Medicamentos(
+	Id_Medicamento int identity (1,1),
+	Nombre_Medicamento varchar(50) not null,
+	Id_Tratamiento int null,
+
+	Created_at datetime not null default getdate(),
+	Updated_at datetime null,
+	Deleted_at datetime null,
+
+	constraint PK_Medicamentos primary key (Id_Medicamento),
+	constraint FK_Medicamentos_Tratamientos foreign key (Id_Tratamiento)
+		references Atencion.Tratamientos(Id_Tratamiento)
+)
+go
