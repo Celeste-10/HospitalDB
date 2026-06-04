@@ -131,3 +131,7 @@ create table Farmacia.Medicamentos(
 		references Atencion.Tratamientos(Id_Tratamiento)
 )
 go
+
+--Transfiere la tabla del esquema Atencion al esquema Farmacia
+alter schema Farmacia transfer Atencion.Tratamientos
+go
