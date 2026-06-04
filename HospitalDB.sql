@@ -328,3 +328,24 @@ update Atencion.Citas set Costo_Consulta = 55.00, Updated_at = getdate() where I
 update Atencion.Citas set Fecha_Cita = '2026-06-15 09:00:00', Updated_at = getdate() where Id_Cita = 4;
 update Farmacia.Tratamientos set Descripcion = 'Tratamiento Hipertensión Crónica - Activo', Updated_at = getdate() where Id_Tratamiento = 1;
 update Farmacia.Medicamentos set Nombre_Medicamento = 'Losartán de 50mg', Updated_at = getdate() where Id_Medicamento = 1;
+
+--Modulo VII -Delete
+update Atencion.Citas set Deleted_at = getdate() where Id_Cita = 15;
+update Farmacia.Medicamentos set Deleted_at = getdate() where Id_Medicamento = 20;
+update Pacientes.Habitaciones set Deleted_at = getdate() where Id_Habitacion = 10;
+
+
+update Farmacia.Medicamentos set Deleted_at = getdate() where Id_Tratamiento = 10;
+update Farmacia.Tratamientos set Deleted_at = getdate() where Id_Tratamiento = 10;
+
+update Pacientes.Pacientes set Deleted_at = getdate() where Id_Paciente = 19; 
+
+update Atencion.Citas set Deleted_at = getdate() where Estado = 'Cancelada';
+update Pacientes.Habitaciones SET Deleted_at = getdate() where Disponibilidad = 'Disponible';
+
+-- Borrado de pacientes sin citas registradas en el sistema
+update Pacientes.Pacientes set Deleted_at = getdate() 
+where Id_Paciente NOT IN (select distinct Id_Paciente from Atencion.Citas where Id_Paciente IS NOT NULL);
+
+-- Limpieza lógica de medicamentos sin tratamiento activo asignado
+update Farmacia.Medicamentos set Deleted_at = getdate() where Id_Tratamiento IS NULL
