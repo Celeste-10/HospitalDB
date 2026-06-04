@@ -349,3 +349,38 @@ where Id_Paciente NOT IN (select distinct Id_Paciente from Atencion.Citas where 
 
 -- Limpieza lógica de medicamentos sin tratamiento activo asignado
 update Farmacia.Medicamentos set Deleted_at = getdate() where Id_Tratamiento IS NULL
+
+--Consultas
+-- 1. Mostrar todos los pacientes activos
+select * from Pacientes.Pacientes where Deleted_at is null
+
+-- 2. Mostrar todos los médicos activos
+select * from Personal.Medicos where Deleted_at is null
+
+-- 3. Mostrar todas las especialidades activas
+select * from Personal.Especialidades where Deleted_at is null
+
+-- 4. Mostrar todas las citas activas
+select * from Atencion.Citas where Deleted_at is null
+
+-- 5. Mostrar pacientes ordenados por nombre
+select * from Pacientes.Pacientes where Deleted_at is null order by Nombre_Paciente asc
+
+-- 6. Mostrar médicos ordenados por salario de forma descendente
+select * from Personal.Medicos where Deleted_at is null order by Salario desc
+
+-- 7. Mostrar citas programadas para el día actual
+select * from Atencion.Citas where cast(Fecha_Cita as date) = cast(getdate() as date) and Deleted_at is null
+
+-- 8. Mostrar habitaciones que se encuentran disponibles
+select * from Pacientes.Habitaciones where Disponibilidad = 'Disponible' and Deleted_at is null
+
+-- 9. Mostrar cantidad de pacientes activos registrados en el hospital
+select count(*) as Total_Pacientes_Activos from Pacientes.Pacientes where Deleted_at is null
+
+-- 10. Mostrar cantidad de citas procesadas por cada médico en el sistema
+select M.Nombre_Medico, count(C.Id_Cita) as Total_Citas
+from Personal.Medicos M
+left join Atencion.Citas C on M.Id_Medico = C.Id_Medico and C.Deleted_at is null
+where M.Deleted_at is null
+group by M.Id_Medico, M.Nombre_Medico
