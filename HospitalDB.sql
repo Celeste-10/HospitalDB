@@ -99,3 +99,19 @@ create table Atencion.Citas(
 		references Personal.Medicos(Id_Medico)
 )
 go
+
+--Tabla Tratamientos
+create table Atencion.Tratamientos(
+	Id_Tratamiento int identity(1,1),
+	Descripcion varchar(max) not null,
+	Id_Paciente int null,
+
+	Created_at datetime not null default getdate(),
+	Updated_at datetime null,
+	Deleted_at datetime null,
+
+	constraint PK_Tratamientos primary key (Id_Tratamiento),
+	constraint FK_Tratamientos_Pacientes foreign key (Id_Paciente)
+		references Pacientes.Pacientes (Id_Paciente)
+)
+go
