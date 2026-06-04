@@ -16,5 +16,13 @@ create schema Farmacia
 
 --Tabla Especialidades
 create table Personal.Especialidades(
-	
+	Id_Especialidad int identity(1,1),
+	Nombre_Especialidad varchar(50) not null,
+
+	Created_at datetime not null default getdate(),
+	Updated_at datetime null,
+	Deleted_at datetime null,
+
+	constraint PK_Especialidades primary key (Id_Especialidad)
 )
+go
