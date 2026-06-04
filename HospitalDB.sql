@@ -307,3 +307,24 @@ insert into Farmacia.Medicamentos (Nombre_Medicamento, Id_Tratamiento) values
 ('Cetirizina', 10), 
 ('Losartán Potásico', 1), 
 ('Enalapril', 1)
+
+--Actualizaciones en pacientes
+update Pacientes.Pacientes set Telefono = '555-9999', Updated_at = getdate() where Id_Paciente = 1
+update Pacientes.Pacientes SET Direccion = 'Nueva Av. Ejercito 400', Updated_at = getdate() where Id_Paciente = 2
+update Pacientes.Pacientes SET Correo_Paciente = 'carlos_nuevo@mail.com', Updated_at = getdate() where Id_Paciente = 1
+update Pacientes.Pacientes SET Tipo_Sangre = 'O-', Updated_at = getdate() where Id_Paciente = 4
+update Pacientes.Habitaciones SET Disponibilidad = 'Ocupada', Id_Paciente = 6, Updated_at = getdate() where Id_Habitacion = 3
+
+-- Actualizaciones en Personal
+update Personal.Medicos SET Salario = 2700.00, Updated_at = getdate() where Id_Medico = 1;
+update Personal.Medicos SET Turno = 'Tarde', Updated_at = getdate() where Id_Medico = 6;
+update Personal.Medicos SET Correo_Medico = 'dr.juan_p@hospital.com', Updated_at = getdate() where Id_Medico = 1;
+update Personal.Medicos SET Experiencia = 11, Updated_at = getdate() where Id_Medico = 1;
+update Personal.Especialidades SET Nombre_Especialidad = 'Cardiología Avanzada', Updated_at = getdate() where Id_Especialidad = 1;
+
+-- Actualizaciones en Atención y Farmacia
+update Atencion.Citas set Estado = 'Completada', Updated_at = getdate() where Id_Cita = 1;
+update Atencion.Citas set Costo_Consulta = 55.00, Updated_at = getdate() where Id_Cita = 3;
+update Atencion.Citas set Fecha_Cita = '2026-06-15 09:00:00', Updated_at = getdate() where Id_Cita = 4;
+update Farmacia.Tratamientos set Descripcion = 'Tratamiento Hipertensión Crónica - Activo', Updated_at = getdate() where Id_Tratamiento = 1;
+update Farmacia.Medicamentos set Nombre_Medicamento = 'Losartán de 50mg', Updated_at = getdate() where Id_Medicamento = 1;
