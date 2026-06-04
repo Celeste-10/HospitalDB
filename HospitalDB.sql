@@ -1,3 +1,8 @@
+-- ============================================
+--      Modulo I -Creacion de base de datos
+--      Modulo II -Restricciones
+-- ============================================
+
 --Creacion de la base de datos
 create database HospitalDB
 use HospitalDB
@@ -136,6 +141,11 @@ go
 alter schema Farmacia transfer Atencion.Tratamientos
 go
 
+-- ================================================
+--      Modulo III -Modificacion de estructuras
+-- ================================================
+
+
 --Modificaciones de la tabla Pacientes
 alter table Pacientes.Pacientes add Telefono varchar(20) null
 alter table Pacientes.Pacientes add Direccion varchar(100) null
@@ -159,6 +169,10 @@ go
 --Modificaciones de la tabla Habitaciones
 alter table Pacientes.Habitaciones add Disponibilidad varchar(20) not null default 'Disponible'
 go
+
+-- =================================================
+--      Modulo IV -Eliminacion de objetos (DROP)
+-- =================================================
 
 --Tablas de prueba
 create table Pacientes.TablaTemporal (Id int, Created_at datetime, Updated_at datetime, Deleted_at datetime);
@@ -197,6 +211,11 @@ create database HospitalPruebaDB
 go
 drop database HospitalPruebaDB
 go
+
+-- ==========================
+--      Modulo V -Insert
+-- ==========================
+
 
 --Insercion de datos
 insert into Personal.Especialidades (Nombre_Especialidad) values
@@ -308,6 +327,10 @@ insert into Farmacia.Medicamentos (Nombre_Medicamento, Id_Tratamiento) values
 ('Losartán Potásico', 1), 
 ('Enalapril', 1)
 
+-- ===========================
+--      Modulo VI -Update
+-- ===========================
+
 --Actualizaciones en pacientes
 update Pacientes.Pacientes set Telefono = '555-9999', Updated_at = getdate() where Id_Paciente = 1
 update Pacientes.Pacientes SET Direccion = 'Nueva Av. Ejercito 400', Updated_at = getdate() where Id_Paciente = 2
@@ -329,7 +352,10 @@ update Atencion.Citas set Fecha_Cita = '2026-06-15 09:00:00', Updated_at = getda
 update Farmacia.Tratamientos set Descripcion = 'Tratamiento Hipertensión Crónica - Activo', Updated_at = getdate() where Id_Tratamiento = 1;
 update Farmacia.Medicamentos set Nombre_Medicamento = 'Losartán de 50mg', Updated_at = getdate() where Id_Medicamento = 1;
 
---Modulo VII -Delete
+-- ============================
+--      Modulo VII -Delete
+-- ============================
+
 update Atencion.Citas set Deleted_at = getdate() where Id_Cita = 15;
 update Farmacia.Medicamentos set Deleted_at = getdate() where Id_Medicamento = 20;
 update Pacientes.Habitaciones set Deleted_at = getdate() where Id_Habitacion = 10;
@@ -349,6 +375,10 @@ where Id_Paciente NOT IN (select distinct Id_Paciente from Atencion.Citas where 
 
 -- Limpieza lógica de medicamentos sin tratamiento activo asignado
 update Farmacia.Medicamentos set Deleted_at = getdate() where Id_Tratamiento IS NULL
+
+-- =======================================
+--      Modulo VIII -Consultas SELECT
+-- =======================================
 
 --Consultas
 -- 1. Mostrar todos los pacientes activos
