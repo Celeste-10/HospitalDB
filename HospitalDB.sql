@@ -159,3 +159,29 @@ go
 --Modificaciones de la tabla Habitaciones
 alter table Pacientes.Habitaciones add Disponibilidad varchar(20) not null default 'Disponible'
 go
+
+--Tablas de prueba
+create table Pacientes.TablaTemporal (Id int, Created_at datetime, Updated_at datetime, Deleted_at datetime);
+go
+drop table Pacientes.TablaTemporal;
+go
+
+create table Personal.Auditoria (Id int, Created_at datetime, Updated_at datetime, Deleted_at datetime);
+go
+drop table Personal.Auditoria;
+go
+
+create table Personal.Logs (Id int, Created_at datetime, Updated_at datetime, Deleted_at datetime);
+go
+drop table Personal.Logs;
+go
+
+create table Farmacia.MedicamentosPrueba (Id int, Created_at datetime, Updated_at datetime, Deleted_at datetime);
+go
+drop table Farmacia.MedicamentosPrueba;
+go
+
+create table Pacientes.TablaPruebas (Id int, Created_at datetime, Updated_at datetime, Deleted_at datetime);
+go
+drop table Pacientes.TablaPruebas;
+go
