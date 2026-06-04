@@ -46,3 +46,21 @@ create table Personal.Medicos(
 		references Personal.Especialidades(Id_Especialidad)
 )
 go
+
+--Tabla Pacientes
+create table Pacientes.Pacientes(
+	Id_Paciente int identity(1,1),
+	Nombre_Paciente varchar(50) not null,
+	Correo_Paciente varchar(100) not null,
+	Edad int not null,
+	Fecha_Registro datetime not null default getdate(),
+
+	Created_at datetime not null default getdate(),
+	Updated_at datetime null,
+	Deleted_at datetime null,
+
+	constraint PK_Paciente primary key (Id_Paciente),
+	constraint UQ_CorreoPaciente unique (Correo_Paciente),
+	constraint CK_EdadPaciente check (Edad >= 0)
+)
+go
