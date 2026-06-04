@@ -64,3 +64,19 @@ create table Pacientes.Pacientes(
 	constraint CK_EdadPaciente check (Edad >= 0)
 )
 go
+
+--Tabla Habitaciones
+create table Pacientes.Habitaciones(
+	Id_Habitacion int identity(1,1),
+	Numero_Habitacion varchar(10) not null,
+	Id_Paciente int null,
+
+	Created_at datetime not null default getdate(),
+	Updated_at datetime null,
+	Deleted_at datetime null,
+
+	constraint PK_Habitaciones primary key (Id_Habitacion),
+	constraint FK_Habitaciones_Pacientes foreign key (Id_Paciente)
+		references Pacientes.Pacientes(Id_Paciente)
+)
+go
