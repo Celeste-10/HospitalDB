@@ -259,3 +259,71 @@ delete from TEmpleadoProyecto where nEmpleadoID = 1
 -- Eliminar un departamento que no tenga empleados asociados
 delete from TDepartamento 
 where nDepartamentoID not in (select distinct nDepartamentoID from TEmpleado where nDepartamentoID is not null)
+
+-- ======================================
+--   Parte 6: Consultas de verificacion
+-- ======================================
+
+--Mostrar todos los empleados ordenados por apellido
+select * from TEmpleado order by cApellido asc
+
+--Mostrar empleados con salario mayor a 1,000
+select * from TEmpleado where nSalario > 1000
+
+--Mostrar empleados activos
+select * from TEmpleado where bActivo =1
+
+--Mostrar empleados contratados durante el año actual
+select * from TEmpleado where year (dFechaContratacion) = 2026
+
+--Mostrar empleados y el nombre de su departamento
+select E.nEmpleadoID, E.cNombre, E.cApellido, D.cNombreDepartamento from TEmpleado E
+inner join TDepartamento D on E.nDepartamentoID = D.nDepartamentoID
+
+--Mostrar empleados y el nombre de su cargo
+select E.nEmpleadoID, E.cNombre, E.cApellido, C.cNombreCargo from TEmpleado E
+inner join TCargo C ON E.nCargoID = C.nCargoID
+
+--Mostrar empleados asignados a proyectos
+select E.cNombre, E.cApellido, P.cNombreProyecto from TEmpleado E 
+inner join TEmpleadoProyecto EP on E.nEmpleadoID = EP.nEmpleadoID
+inner join TProyecto P on EP.nProyectoID = P.nProyectoID
+
+--Mostrar cantidad de empleados por departamento
+select D.cNombreDepartamento, count(E.nEmpleadoID) as TotalEmpleados from TDepartamento D
+left join TEmpleado E on D.nDepartamentoID = E.nDepartamentoID
+group by D.cNombreDepartamento
+
+--Mostrar salario promedio por departamento
+select D.cNombreDepartamento, avg(E.nSalario) as SalarioPromedio from TDepartamento D
+inner join TEmpleado E on D.nDepartamentoID = E.nDepartamentoID
+group by D.cNombreDepartamento
+
+--Mostrar salario máximo y mínimo por departamento
+select D.cNombreDepartamento, max(E.nSalario) as SalarioMaximo, min(E.nSalario) as SalarioMinimo from TDepartamento D
+inner join TEmpleado E on D.nDepartamentoID = E.nDepartamentoID
+group by D.cNombreDepartamento
+
+--Mostrar los proyectos con más de dos empleados asignados
+select P.cNombreProyecto, count(EP.nEmpleadoID) as NumeroEmpleados from TProyecto P
+inner join TEmpleadoProyecto EP on P.nProyectoID = EP.nProyectoID
+group by P.cNombreProyecto
+having count(EP.nEmpleadoID) > 2
+
+--Mostrar empleados cuyo apellido inicia con "G"
+select * from TEmpleado where cApellido like 'G%'
+
+--Mostrar empleados ordenados por salario descendente
+select * from TEmpleado order by nSalario desc
+
+--Mostrar los tres salarios más altos
+select top 3 nSalario, cNombre, cApellido from TEmpleado order by nSalario desc
+
+--Mostrar empleados con edad entre 25 y 40 años
+select * from TEmpleado where nEdad between 25 and 40
+
+--Mostrar cantidad total de empleados activos
+select count(*) as TotalActivos from TEmpleado where bActivo = 1
+
+--Mostrar el total de proyectos registrados
+select count(*) as TotalProyectos from TProyecto 
