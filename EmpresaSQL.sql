@@ -327,3 +327,42 @@ select count(*) as TotalActivos from TEmpleado where bActivo = 1
 
 --Mostrar el total de proyectos registrados
 select count(*) as TotalProyectos from TProyecto 
+
+-- ======================================
+--   Parte 7: Administracion de objetos
+-- ======================================
+
+--Eliminar la restricción CHECK de edad
+alter table TEmpleado drop constraint CHK_Empleado_Edad
+
+--Eliminar la restricción UNIQUE del correo
+alter table TEmpleado drop constraint UQ_Empleado_Email
+
+--Agregar nuevamente ambas restricciones
+alter table TEmpleado add constraint CHK_Empleado_Edad check (nEdad BETWEEN 18 AND 65)
+alter table TEmpleado add constraint UQ_Empleado_Email unique (cEmail)
+
+--Eliminar la tabla TEmpleadoProyecto
+drop table TEmpleadoProyecto
+
+--Eliminar la tabla TProyecto
+drop table TProyecto
+
+--Eliminar la tabla TEmpleado
+drop table TEmpleado
+
+--Eliminar la tabla TCargo
+drop table TCargo
+
+--Eliminar la tabla TDepartamento
+drop table TDepartamento
+
+--Eliminar la tabla TSucursal
+drop table TSucursal
+
+--Eliminar la base de datos EmpresaSQL
+use master
+go
+
+drop database EmpresaSQL
+go
