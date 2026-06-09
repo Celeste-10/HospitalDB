@@ -193,3 +193,46 @@ insert into TEmpleado (cNIF, cNombre, cApellido, nSalario) values
 
 -- Análisis del error: Se producirá una violación de la restricción CHECK 'CHK_Empleado_Salario' debido a que el valor asignado (-500) no cumple con la regla de integridad de ser estrictamente mayor que 300. El motor de base de datos abortará la instrucción.
 */
+
+-- ============================================
+--   Parte 4: Actualizacion de datos (UPDATE) 
+-- ============================================
+
+-- Incrementar en 10% el salario de todos los empleados
+update TEmpleado 
+set nSalario = nSalario * 1.10
+
+-- Incrementar en 20% el salario de los empleados de un departamento específico
+update TEmpleado 
+set nSalario = nSalario * 1.20 
+where nDepartamentoID = 1
+
+-- Actualizar el correo electrónico de un empleado
+update TEmpleado 
+set cEmail = 'carlos.gomez.nuevo@empresa.com' 
+where cNIF = '11111111A'
+
+-- Modificar el cargo de un empleado
+update TEmpleado 
+set nCargoID = 5 
+where cNIF = '55555555E'
+
+-- Cambiar el departamento de dos empleados
+update TEmpleado 
+set nDepartamentoID = 3 
+where cNIF IN ('22222222B', '00000000J')
+
+-- Marcar como inactivos (bActivo = 0) a los empleados con salario inferior a 500
+update TEmpleado 
+set bActivo = 0 
+where nSalario < 500
+
+-- Actualizar la fecha de finalización de un proyecto
+update TProyecto 
+set dFechaFinalizacion = '2026-09-15' 
+where nProyectoID = 3
+
+-- Asignar un nuevo proyecto a un empleado
+insert into TEmpleadoProyecto (nEmpleadoID, nProyectoID) values 
+(2, 3)
+
