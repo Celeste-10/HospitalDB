@@ -236,3 +236,26 @@ where nProyectoID = 3
 insert into TEmpleadoProyecto (nEmpleadoID, nProyectoID) values 
 (2, 3)
 
+-- ==========================================
+--   Parte 5: Eliminacion de datos (DELETE)
+-- ==========================================
+
+-- Eliminar un empleado específico mediante su NIF
+-- Nota: Si el empleado tiene asignados proyectos, primero se borran sus dependencias para evitar conflicto de clave foránea.
+delete from TEmpleadoProyecto where nEmpleadoID = (select nEmpleadoID from TEmpleado where cNIF = '44444444D')
+delete from TEmpleado where cNIF = '44444444D'
+
+-- Eliminar todos los empleados inactivos
+delete from TEmpleadoProyecto where nEmpleadoID in (select nEmpleadoID from TEmpleado where bActivo = 0)
+delete from TEmpleado where bActivo = 0
+
+-- Eliminar un proyecto específico
+delete from TEmpleadoProyecto where nProyectoID = 2
+delete from TProyecto where nProyectoID = 2
+
+-- Eliminar las asignaciones de un empleado en la tabla TEmpleadoProyecto
+delete from TEmpleadoProyecto where nEmpleadoID = 1
+
+-- Eliminar un departamento que no tenga empleados asociados
+delete from TDepartamento 
+where nDepartamentoID not in (select distinct nDepartamentoID from TEmpleado where nDepartamentoID is not null)
