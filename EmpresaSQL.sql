@@ -366,3 +366,113 @@ go
 
 drop database EmpresaSQL
 go
+
+-- ==========================
+--    Desafios adicionales
+-- ==========================
+
+create database EmpresaDesafios;
+go
+use EmpresaDesafios;
+go
+
+-- Crear una tabla TCliente con al menos 8 campos y restricciones
+create table TCliente (
+    nClienteID int identity(1,1) primary key,
+    cCedula varchar(20) unique not null,
+    cNombre varchar(100) not null,
+    cApellido varchar(100) not null,
+    cEmail varchar(100) unique,
+    cTelefono varchar(20),
+    dFechaRegistro date default getdate(),
+    nEdad int check (nEdad >= 18),
+    bEstado bit default 1
+)
+
+-- Crear una tabla TVenta relacionada con TCliente
+create table TVenta (
+    nVentaID int identity(1,1) primary key,
+    nClienteID int not null,
+    dFechaVenta date not null default getdate(),
+    nMontoTotal decimal(10,2) check (nMontoTotal >= 0),
+    cMetodoPago varchar(50) default 'Efectivo',
+    constraint FK_Venta_Cliente foreign key (nClienteID) references TCliente(nClienteID)
+)
+
+-- Registrar 20 clientes
+insert into TCliente (cCedula, cNombre, cApellido, cEmail, cTelefono, nEdad) values
+('C01', 'Juan', 'Perez', 'juan@mail.com', '555-01', 25),
+('C02', 'Maria', 'Lopez', 'maria@mail.com', '555-02', 30),
+('C03', 'Carlos', 'Mendoza', 'carlos@mail.com', '555-03', 45),
+('C04', 'Ana', 'Gomez', 'ana@mail.com', '555-04', 22),
+('C05', 'Luis', 'Torres', 'luis@mail.com', '555-05', 35),
+('C06', 'Sofia', 'Ruiz', 'sofia@mail.com', '555-06', 28),
+('C07', 'Pedro', 'Castro', 'pedro@mail.com', '555-07', 50),
+('C08', 'Lucia', 'Silva', 'lucia@mail.com', '555-08', 19),
+('C09', 'Jorge', 'Rios', 'jorge@mail.com', '555-09', 40),
+('C10', 'Elena', 'Mejia', 'elena@mail.com', '555-10', 33),
+('C11', 'Miguel', 'Diaz', 'miguel@mail.com', '555-11', 27),
+('C12', 'Laura', 'Vega', 'laura@mail.com', '555-12', 29),
+('C13', 'David', 'Soto', 'david@mail.com', '555-13', 31),
+('C14', 'Carmen', 'Luna', 'carmen@mail.com', '555-14', 42),
+('C15', 'Raul', 'Cruz', 'raul@mail.com', '555-15', 38),
+('C16', 'Silvia', 'Pena', 'silvia@mail.com', '555-16', 24),
+('C17', 'Andres', 'Flores', 'andres@mail.com', '555-17', 48),
+('C18', 'Isabel', 'Morales', 'isabel@mail.com', '555-18', 26),
+('C19', 'Francisco', 'Herrera', 'fran@mail.com', '555-19', 55),
+('C20', 'Adriana', 'Nunez', 'adri@mail.com', '555-20', 23)
+
+-- Registrar 50 ventas
+insert into TVenta (nClienteID, dFechaVenta, nMontoTotal, cMetodoPago) values
+(1, '2026-01-05', 150.00, 'Tarjeta'), (1, '2026-01-20', 45.50, 'Efectivo'),
+(2, '2026-01-12', 300.00, 'Tarjeta'), (2, '2026-02-14', 120.00, 'Transferencia'),
+(3, '2026-02-18', 500.00, 'Tarjeta'), (3, '2026-03-01', 250.00, 'Tarjeta'),
+(4, '2026-03-05', 35.00, 'Efectivo'),  (4, '2026-03-15', 60.00, 'Efectivo'),
+(5, '2026-03-22', 850.00, 'Transferencia'), (5, '2026-04-10', 150.00, 'Tarjeta'),
+(6, '2026-04-12', 90.00, 'Efectivo'),  (6, '2026-04-25', 110.00, 'Tarjeta'),
+(7, '2026-04-30', 1200.00, 'Transferencia'),(7, '2026-05-02', 400.00, 'Tarjeta'),
+(8, '2026-05-05', 25.00, 'Efectivo'),  (8, '2026-05-12', 75.00, 'Efectivo'),
+(9, '2026-05-18', 450.00, 'Tarjeta'), (9, '2026-05-25', 310.00, 'Transferencia'),
+(10, '2026-06-01', 180.00, 'Tarjeta'),(10, '2026-06-05', 95.00, 'Efectivo'),
+(11, '2026-01-15', 210.00, 'Tarjeta'),(11, '2026-02-20', 85.00, 'Efectivo'),
+(12, '2026-02-25', 130.00, 'Tarjeta'),(12, '2026-03-10', 320.00, 'Transferencia'),
+(13, '2026-03-14', 55.00, 'Efectivo'), (13, '2026-04-02', 140.00, 'Tarjeta'),
+(14, '2026-04-08', 620.00, 'Transferencia'),(14, '2026-05-12', 215.00, 'Tarjeta'),
+(15, '2026-05-15', 99.99, 'Efectivo'), (15, '2026-05-22', 180.00, 'Tarjeta'),
+(16, '2026-05-28', 45.00, 'Efectivo'), (16, '2026-06-02', 65.00, 'Efectivo'),
+(17, '2026-01-10', 750.00, 'Transferencia'),(17, '2026-03-20', 340.00, 'Tarjeta'),
+(18, '2026-04-15', 115.00, 'Tarjeta'),(18, '2026-05-01', 90.00, 'Efectivo'),
+(1, '2026-02-10', 85.00, 'Efectivo'),  (2, '2026-03-25', 410.00, 'Tarjeta'),
+(3, '2026-04-05', 150.00, 'Efectivo'), (5, '2026-05-10', 230.00, 'Tarjeta'),
+(7, '2026-05-20', 95.00, 'Efectivo'),  (9, '2026-06-02', 500.00, 'Transferencia'),
+(11, '2026-03-18', 125.00, 'Tarjeta'),(12, '2026-04-22', 70.00, 'Efectivo'),
+(14, '2026-05-29', 310.00, 'Tarjeta'), (17, '2026-06-04', 120.00, 'Efectivo'),
+(2, '2026-05-11', 60.00, 'Efectivo'),  (5, '2026-06-01', 450.00, 'Transferencia'),
+(7, '2026-06-03', 180.00, 'Tarjeta'), (9, '2026-06-06', 125.00, 'Efectivo')
+
+-- Actualizar precios o montos de ventas según una condición
+update TVenta set nMontoTotal = nMontoTotal * 1.05 where cMetodoPago = 'Tarjeta'
+
+-- Eliminar clientes sin ventas
+delete from TCliente where nClienteID not in (select distinct nClienteID from TVenta)
+
+-- Consultar los 5 clientes con mayores compras
+select top 5 C.nClienteID, C.cNombre, C.cApellido, sum(V.nMontoTotal) as TotalComprado from TCliente C
+inner join TVenta V on C.nClienteID = V.nClienteID
+group by C.nClienteID, C.cNombre, C.cApellido
+order by TotalComprado desc
+
+-- Consultar ventas por mes
+select month(dFechaVenta) as Mes, year(dFechaVenta) as Anio, count(nVentaID) as CantidadVentas, sum(nMontoTotal) as TotalVendido from TVenta
+group by month(dFechaVenta), year(dFechaVenta)
+order by Anio, Mes
+
+-- Consultar promedio de ventas por cliente
+select C.cNombre, C.cApellido, avg(V.nMontoTotal) as PromedioPorCompra from TCliente C
+inner join TVenta V on C.nClienteID = V.nClienteID
+group by C.nClienteID, C.cNombre, C.cApellido
+
+-- Generar un reporte consolidado utilizando JOIN entre tres tablas
+select C.cNombre + ' ' + C.cApellido as NombreCliente, V.nMontoTotal, V.dFechaVenta, V.cMetodoPago
+from TCliente C
+inner join TVenta V on C.nClienteID = V.nClienteID
